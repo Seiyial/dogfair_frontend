@@ -22,6 +22,7 @@ You _should_:
 - ✋🏻 Let us know if there are any issues with the API.
 - 🙂 Make sure to attribute those who need to be attributed.
 - 😮 If multiple errors are returned by the API or your validation methods at the same time, you should display them all at the same time.
+- 😊 Structure your code and this codebase in a consistent manner and be able to explain how you structured it.
 
 You're *highly recommended to*:
 
