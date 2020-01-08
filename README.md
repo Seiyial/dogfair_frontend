@@ -23,6 +23,7 @@ You _should_:
 - 🙂 Make sure to attribute those who need to be attributed.
 - 😮 If multiple errors are returned by the API or your validation methods at the same time, you should display them all at the same time.
 - 😊 Structure your code and this codebase in a consistent manner and be able to explain how you structured it.
+- 👍🏻 `$ open README.html` after cloning this repository as it'll help you view this better
 
 You're *highly recommended to*:
 
@@ -95,7 +96,7 @@ X325533a, JACKSONVILLE, j123456a, J123456A.
 
 
 
-##### Successful Response
+#### Successful Response
 
 >The following is my _guarantee_: when these conditions (in bold) are met (in this case, the response status code is `201`), what you wanted to do (in this case, create a license registration) **is** successful. **Otherwise, it is not.** Different backends may implement different means of conveying successful response.
 
@@ -111,7 +112,7 @@ Response body:
 
 
 
-##### Unsuccessful Response
+#### Unsuccessful Response
 
  >The section "successful response" above shows what distinguishes between a successful and unsuccessful response. This section will cover what are the different **cases** of unsuccessful responses and what they mean, so that you can feedback that to the user accordingly.
 
@@ -167,7 +168,7 @@ Response body:
 
 > A **GET** request, unlike a **POST** request above, does not accept a request body. Thus, there is no JSON to send here.
 
-##### Successful Response
+#### Successful Response
 
 **Status code: 200**
 
@@ -215,7 +216,7 @@ E.g. to update the registration of ID 2, send a **PUT** or **PATCH** request to 
     "name": (string),
     "age": (integer),
     "description": (string),
-    "doggo_id": (string) (unique) (see create section for formatting of this variable)
+    "doggo_id": (string) (unique) // see create section for formatting of this variable)
   }
 }
 ```
@@ -226,9 +227,9 @@ E.g. to update the registration of ID 2, send a **PUT** or **PATCH** request to 
 // Basic Structure:
 {
   "errors": {
-    (erratic field you provided): [
-    	(list of errors)
-  	]
+    // (erratic field you provided): [
+    	// (list of errors)
+  	// ]
 	}
 }
 
