@@ -1,6 +1,7 @@
 # DogFair
 
 <center>by <a href="https://github.com/Seiyial">Seiyial</a></center>
+
 Welcome to the Dog Fair! It is an annual fair* for dogs in Arcadia Valley*.
 
 We've just been informed that the DogSociety of Arcadia Valley is setting up a booth at the DogFair, for owners to register DogSociety Licenses for their dogs! DogSociety* is a really great club out there for our furry pals, and this is the first time they're opening such a registration in Arcadia Valley! There will be tons and tons of people registering. For that, I need your help to set up a registration console for our friendly booth managers.
