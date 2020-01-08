@@ -1,68 +1,300 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# DogFair
 
-## Available Scripts
+<center>by <a href="https://github.com/Seiyial">Seiyial</a></center>
+Welcome to the Dog Fair! It is an annual fair* for dogs in Arcadia Valley*.
 
-In the project directory, you can run:
+We've just been informed that the DogSociety of Arcadia Valley is setting up a booth at the DogFair, for owners to register DogSociety Licenses for their dogs! DogSociety* is a really great club out there for our furry pals, and this is the first time they're opening such a registration in Arcadia Valley! There will be tons and tons of people registering. For that, I need your help to set up a registration console for our friendly booth managers.
 
-### `yarn start`
+They will need to be able to **Create**, **Read**, **Update** and **Delete** these registrations.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The API endpoints for those have already been set up by me. All you have to do is build what the users see.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Create a **Single-Page Application (SPA)**  (frontend only) using **ReactJS** that provides these features.
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+You _should_:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 👍🏻 USE only Functional Components (NO Class Components)
+- 🙅🏻‍♂️ NOT USE VueJS, Svelte or other frontend frameworks
+- ☑️ Validate all user inputs on **frontend** side (aka ensure they're filled in and in valid format) and not rely on the server alone to perform validations.
+- 🦄 Let the user know what went wrong, if anything went wrong with their actions, even if it's an issue with the server.
+- ✋🏻 Let us know if there are any issues with the API.
+- 🙂 Make sure to attribute those who need to be attributed.
+- 😮 If multiple errors are returned by the API or your validation methods at the same time, you should display them all at the same time.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+You're *highly recommended to*:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 👍🏻 Use a highly supported code editor like VSCode
+- 👍🏻 USE a npm library like `axios` to make asynchronous HTTP requests to the API (provided below)
+- 👍🏻 Install `ESLint` on your code editor and have it guide you to write frontend code our way (our eslint ruleset has already been loaded into this folder)
 
-### `yarn eject`
+You *may wanna...*
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- 👍🏻 Learn to use a react routing framework like `reach-router` (we/I use this), `react-router` or [build your own](https://www.freecodecamp.org/news/you-might-not-need-react-router-38673620f3d/)
+- 😆 Use TypeScript if you can! (But be warned, especially if you're new, this will increase the difficulty by A LOT)
+- Redux is not necessary but you're welcome to try it too (not recommended for now)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## How to run the server
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+# clone the repository
+git clone git@github.com:Seiyial/dogfair_frontend dogfair
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# enter folder
+cd dogfair
 
-## Learn More
+# install dependencies
+npm install # or yarn
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# start server
+npm start # or yarn start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## API
 
-### Code Splitting
+> Note: as the `dogfair` API is hosted on Heroku as a free tier app, it will go to sleep after some moments of inactivity. Thus, if you haven't hit the API for a while, give it up to 30 seconds to get back to you.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### API for CREATING License Registration
 
-### Analyzing the Bundle Size
+**POST `https://dogfair.herokuapp.com/api/license_registrations`**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Required format:
 
-### Making a Progressive Web App
+```json
+{
+  "registration": {
+    "name": (string),
+    "age": (integer),
+    "description": (string),
+    "doggo_id": (string) (unique) (see below)
+  }
+}
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+The `doggo_id` follows the following [RegExp](https://blog.usejournal.com/regular-expressions-a-complete-beginners-tutorial-c7327b9fd8eb) format:
 
-### Advanced Configuration
+```js
+/(J)(\d{6})([a-d])/g
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+This means that the `doggo_id`:-
 
-### Deployment
+- Starts with the capital letter **J**
+- Followed by any **six (6)** digits
+- and ends with any lowercase letter from **a** to **d**.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+Examples of valid `doggo_id`s:
 
-### `yarn build` fails to minify
+J123456a, J449320c, J090909d
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Examples of invalid `doggo_id`s:
+
+X325533a, JACKSONVILLE, j123456a, J123456A.
+
+
+
+##### Successful Response
+
+>The following is my _guarantee_: when these conditions (in bold) are met (in this case, the response status code is `201`), what you wanted to do (in this case, create a license registration) **is** successful. **Otherwise, it is not.** Different backends may implement different means of conveying successful response.
+
+**Status code: 201**
+
+Response body:
+
+```json
+{
+  "data": (information about the dog you registered)
+}
+```
+
+
+
+##### Unsuccessful Response
+
+ >The section "successful response" above shows what distinguishes between a successful and unsuccessful response. This section will cover what are the different **cases** of unsuccessful responses and what they mean, so that you can feedback that to the user accordingly.
+
+```json
+// Basic Structure:
+{
+  "errors": {
+    (erratic field you provided): [
+    	(list of errors)
+  	]
+	}
+}
+
+// COMMON ERRORS
+
+// doggo_id has already been registered
+{
+  "errors": {
+    "doggo_id": ["has already been taken"]
+  }
+}
+
+// name is blank or not provided
+{
+  "errors": {
+    "name": ["can't be blank"]
+  }
+}
+
+// doggo_id is incorrectly formatted
+{
+  "errors": {
+    "doggo_id": ["has invalid format"]
+  }
+}
+
+// NOTE: Multiple Errors, if there are, can and will be returned together. You are expected to display them on your UI altogether.
+// e.g.
+{
+  "errors": {
+    "name": ["can't be blank"],
+    "description": ["can't be blank"],
+    "doggo_id": ["has invalid format"]
+  }
+}
+```
+
+
+
+### API for LISTING License Registrations
+
+**GET `https://dogfair.herokuapp.com/api/license_registrations`**
+
+> A **GET** request, unlike a **POST** request above, does not accept a request body. Thus, there is no JSON to send here.
+
+##### Successful Response
+
+**Status code: 200**
+
+Response body:
+
+```json
+{
+	"data": [
+    (information about a dog registration),
+    (information about another dog registration)
+  ]
+}
+```
+
+### Information about a dog registration
+
+Each dog registration will be represented in this format. Parse the data accordingly to display registration details in your app.
+
+```json
+{
+  "age": (number),
+  "description": (string),
+  "doggo_id": {
+    "first": "J",
+    "last": (last 3 numbers of doggo_id, and the letter, e.g. "456d")
+  },
+	"id": (ID in the database) (number),
+	"name": (string)
+}
+```
+
+As you can see, the `doggo_id` isn't fully returned. This is done on purpose as we don't want to expose it completely here. You should display the Doggo ID to the user in the form of J...123d (based on the values you provided)
+
+### API for UPDATING License Registrations
+
+**PATCH** or **PUT**  [https://dogfair.herokuapp.com/api/license_registrations/{id}]() where {id} is the the `id` of the registration.
+
+E.g. to update the registration of ID 2, send a **PUT** or **PATCH** request to https://dogfair.herokuapp.com/api/license_registrations/2.
+
+**Required Request Body**:
+
+```json
+{
+  "registration": {
+    "name": (string),
+    "age": (integer),
+    "description": (string),
+    "doggo_id": (string) (unique) (see create section for formatting of this variable)
+  }
+}
+```
+
+##### Unsuccessful Responses
+
+```json
+// Basic Structure:
+{
+  "errors": {
+    (erratic field you provided): [
+    	(list of errors)
+  	]
+	}
+}
+
+// COMMON ERRORS
+
+// doggo_id has already been registered
+{
+  "errors": {
+    "doggo_id": ["has already been taken"]
+  }
+}
+
+// name is blank or not provided
+{
+  "errors": {
+    "name": ["can't be blank"]
+  }
+}
+
+// doggo_id is incorrectly formatted
+{
+  "errors": {
+    "doggo_id": ["has invalid format"]
+  }
+}
+
+// There is no record at the specified ID, it could've been deleted already
+{
+  "detail": "Not found"
+}
+
+// NOTE: Multiple Errors, if there are, can and will be returned together. You are expected to display them on your UI altogether.
+// e.g.
+{
+  "errors": {
+    "name": ["can't be blank"],
+    "description": ["can't be blank"],
+    "doggo_id": ["has invalid format"]
+  }
+}
+```
+
+
+
+### API for DELETING License Registrations
+
+**DELETE**  [https://dogfair.herokuapp.com/api/license_registrations/{id}]() where {id} is the the `id` of the registration.
+
+E.g. to update the registration of ID 2, send a **PUT** or **PATCH** request to https://dogfair.herokuapp.com/api/license_registrations/2.
+
+##### Successful Response
+
+**Status Code: 204** (no content)
+
+
+
+##### Unsuccessful Responses
+
+- Status Code: 404 (Not Found)
+
+  Body: `{ "detail": "Not found" }`
+
+  > The requested ID is not found. The registration may have been already deleted _prior_ to this request.
+
+
+
+
+
+_*Of course, all fictional 🌠_
+

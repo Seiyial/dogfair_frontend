@@ -21,11 +21,11 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color:  rgba(244, 220, 179, 1);
 }
 
 .App-link {
-  color: #61dafb;
+  color:  rgba(244, 220, 179, 1);
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +35,15 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.dogfair-footer {
+  color: rgba(244, 220, 179, 0.4);
+  font-size: 12px;
+  position: absolute;
+  bottom: 12px;
+}
+
+.dogfair-footer a {
+  color:  rgba(244, 220, 179, 0.4);
 }
